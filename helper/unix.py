@@ -17,6 +17,7 @@ import sys
 import traceback
 import warnings
 
+import distro
 
 # Ignore the DeprecationWarning caused by os.popen3 in Python 2.6
 warnings.filterwarnings("ignore", category=DeprecationWarning)
@@ -33,7 +34,8 @@ def operating_system():
     """
     if platform.system() == 'Darwin':
         return 'OS X Version %s' % platform.mac_ver()[0]
-    distribution = ' '.join(platform.linux_distribution()).strip()
+    distribution = ' '.join(distro.linux_distribution(
+        full_distribution_name=False)).strip()
     os_platform = platform.platform(True, True)
     if distribution:
         os_platform += ' (%s)' % distribution
